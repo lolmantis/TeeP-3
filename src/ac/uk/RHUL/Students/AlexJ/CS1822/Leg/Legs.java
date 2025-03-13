@@ -72,9 +72,10 @@ public final class Legs {
 		LCD.clear();
 		for (int currentLeg = 0; currentLeg < 4; currentLeg++) {
 			int limitAngle = legs[currentLeg].getMotor().getLimitAngle();
-			LCD.drawString(String.format("L%d: %d", currentLeg, limitAngle), 0, currentLeg + 1);
+			LCD.drawString(String.format("Leg %d Ang %d", currentLeg, limitAngle), 0, currentLeg + 1);
 			startingAngles[currentLeg] = limitAngle;
 		}
+		Button.ENTER.waitForPressAndRelease();
 		Delay.msDelay(500);
 		beginSync();
 		for (Leg leg : legs) {
@@ -85,13 +86,13 @@ public final class Legs {
 		LCD.clear();
 		for (int currentLeg = 0; currentLeg < 4; currentLeg++) {
 			int limitAngle = legs[currentLeg].getMotor().getLimitAngle();
-			LCD.drawString(String.format("$d --> $d", startingAngles[currentLeg], limitAngle), 0, currentLeg);
+			LCD.drawString(String.format("%d --> %d", startingAngles[currentLeg], limitAngle), 0, currentLeg+1);
 		}
 		LCD.drawString("Enter to quit", 0, 7);
 		Button.ENTER.waitForPressAndRelease();
 	}
 
-	public void testLegs() {
+	public void testMotors() {
 		waitToStop();
 		beginSync();
 		for (Leg leg : legs) {

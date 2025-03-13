@@ -7,11 +7,21 @@ import lejos.hardware.motor.BaseRegulatedMotor;
 
 public final class Leg {
 
-	private final BaseRegulatedMotor power;
+	private final BaseRegulatedMotor power; // ratio 24:40
+	/*
+	 * gears: 24 into 40 twice
+	 * ratio 3:5
+	 * 3:5 --> 3:5
+	 * 1.8x torque
+	 * twice
+	 * 3.24x the torque power
+	 * 
+	 * positive angle = anticlockwise, negative angle = clockwise 
+	 */
 	private int speed;
 
 	public Leg(Port port) {
-		this(port, WalkerConsts.MOTOR_SPEED_MEANDER);
+		this(port, WalkerConsts.MOTOR_SPEED_BASE);
 
 	}
 
@@ -30,7 +40,7 @@ public final class Leg {
 	}
 
 	public void rotate(int angle) {
-		power.rotate(angle, true);
+		power.rotate(Math.round(angle*WalkerConsts.GEAR_RATIO), true); // accounting for gear ratios abstractly
 	}
 
 	public void stop() {
@@ -41,11 +51,19 @@ public final class Leg {
 		power.waitComplete();
 	}
 
-	public void Stand() {
-		power.rotate(80);
+	/**
+	 * @param reversed Boolean determines leg position
+	 * @see true: next to brick
+	 * @see false: below brick
+	 * 
+	 * 
+	 */
+	public void stand(Boolean reversed) {
+		if (reversed) {rotate(215);}
+		else {rotate(-90);}
 		// in case this gets more complex, I'm abstracting standing
 		// basic principle is to rotate 90 degrees
-		// note that the angle is reversed, because the motors are installed upside down
+		// be mindful of direction! gears
 	}
 
 	public void StepForward() {

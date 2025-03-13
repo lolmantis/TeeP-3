@@ -40,17 +40,12 @@ public class BaseFrame {
 		return legs;
 	}
 
-	public void stand() {
-		riser.stand();
+	public void stand(Boolean reversed) {
+		riser.stand(reversed);
 		// will get more convoluted later
 	}
 
 	public void standFromCat() {
 		riser.standFromCatMode();
 	}
-
-	public void legTest() {
-		legs.testLegs();
-	}
-
 }

@@ -14,7 +14,7 @@ public class StandAndSit {
 		this.legs = legs;
 	}
 
-	public void stand() {
+	public void stand(Boolean reversed) {
 		if (Standing) {
 			return;
 		}
@@ -22,7 +22,7 @@ public class StandAndSit {
 		legs.waitToStop();
 		legs.beginSync();
 		for (Leg leg : legs.getLegs()) {
-			leg.Stand();
+			leg.stand(reversed);
 		}
 		legs.waitToStop();
 		legs.endSync();
@@ -43,8 +43,10 @@ public class StandAndSit {
 		// front legs are straight down, hind legs are straight forward
 		legs.beginSync();
 		// hind legs
-		legs.getLeg(LegID.BACK_LEFT).rotate(90);
-		legs.getLeg(LegID.BACK_RIGHT).rotate(90);
+		legs.getLeg(LegID.FRONT_LEFT).rotate(-15);
+		legs.getLeg(LegID.FRONT_RIGHT).rotate(-15);
+		legs.getLeg(LegID.BACK_LEFT).stand(false);
+		legs.getLeg(LegID.BACK_RIGHT).stand(false);
 		// arbitrary rotate val, will be fine tuned later
 
 		legs.waitToStop();

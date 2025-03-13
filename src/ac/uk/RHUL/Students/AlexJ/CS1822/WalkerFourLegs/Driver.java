@@ -9,11 +9,19 @@ public class Driver {
 
 		BaseFrame frame = new BaseFrame();
 
-		LCD.drawString("Enter: begin tests", 0, 1);
+//		LCD.drawString("Enter: begin tests", 0, 1);
+//		Button.ENTER.waitForPressAndRelease();
+//		LCD.clear();
+//		TestBed tester = new TestBed(frame);
+//		tester.runTests();
+
+		LCD.clear();
+		LCD.drawString("Enter to Stand", 0, 1);
 		Button.ENTER.waitForPressAndRelease();
 		LCD.clear();
-		TestBed.main(null);
-
+		frame.stand(false);
+//		frame.standFromCat();
+		Button.ENTER.waitForPressAndRelease();
 	}
 
 }

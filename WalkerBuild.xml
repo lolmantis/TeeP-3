@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project basedir="." default="jar" name="AJ.TestMotors.00">
-  <property name="main-class" value="ac.uk.RHUL.Students.AlexJ.CS1840.WalkerFourLegs.Driver" />
+<project basedir="." default="jar" name="AJ.Stand.09.normal">
+  <property name="main-class" value="ac.uk.RHUL.Students.AlexJ.CS1822.WalkerFourLegs.Driver" />
   <property environment="env" />
     <property name="source.dir" value="src" />
     <property name="lib.dir" value="${env.EV3_HOME}/lib/ev3" />
