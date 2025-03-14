@@ -1,8 +1,8 @@
-package ac.uk.RHUL.Students.AlexJ.CS1822.WalkerFourLegs;
+package ac.uk.RHUL.Students.AlexJ.CS1821.WalkerFourLegs;
 
-import ac.uk.RHUL.Students.AlexJ.CS1822.Leg.Leg;
-import ac.uk.RHUL.Students.AlexJ.CS1822.Leg.Legs;
-import ac.uk.RHUL.Students.AlexJ.CS1822.persConsts.WalkerConsts;
+import ac.uk.RHUL.Students.AlexJ.CS1821.Leg.Leg;
+import ac.uk.RHUL.Students.AlexJ.CS1821.Leg.Legs;
+import ac.uk.RHUL.Students.AlexJ.CS1821.persConsts.WalkerConsts;
 import lejos.hardware.lcd.LCD;
 import lejos.utility.Delay;
 

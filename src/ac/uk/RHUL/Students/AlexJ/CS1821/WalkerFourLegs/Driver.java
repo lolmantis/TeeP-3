@@ -1,4 +1,4 @@
-package ac.uk.RHUL.Students.AlexJ.CS1822.WalkerFourLegs;
+package ac.uk.RHUL.Students.AlexJ.CS1821.WalkerFourLegs;
 
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;

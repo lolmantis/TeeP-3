@@ -1,8 +1,8 @@
-package ac.uk.RHUL.Students.AlexJ.CS1822.WalkerFourLegs;
+package ac.uk.RHUL.Students.AlexJ.CS1821.WalkerFourLegs;
 
-import ac.uk.RHUL.Students.AlexJ.CS1822.Leg.Leg;
-import ac.uk.RHUL.Students.AlexJ.CS1822.Leg.LegID;
-import ac.uk.RHUL.Students.AlexJ.CS1822.Leg.Legs;
+import ac.uk.RHUL.Students.AlexJ.CS1821.Leg.Leg;
+import ac.uk.RHUL.Students.AlexJ.CS1821.Leg.LegID;
+import ac.uk.RHUL.Students.AlexJ.CS1821.Leg.Legs;
 
 public class StandAndSit {
 

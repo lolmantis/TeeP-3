@@ -1,6 +1,6 @@
-package ac.uk.RHUL.Students.AlexJ.CS1822.Leg;
+package ac.uk.RHUL.Students.AlexJ.CS1821.Leg;
 
-import ac.uk.RHUL.Students.AlexJ.CS1822.persConsts.WalkerConsts;
+import ac.uk.RHUL.Students.AlexJ.CS1821.persConsts.WalkerConsts;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.BaseRegulatedMotor;
