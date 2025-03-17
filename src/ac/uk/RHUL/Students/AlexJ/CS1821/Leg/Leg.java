@@ -38,9 +38,13 @@ public final class Leg {
 	public void forward() {
 		power.forward();
 	}
+	
+	public void setSpeed(float speed) {
+		power.setSpeed(speed);
+	}
 
 	public void rotate(int angle) {
-		power.rotate(Math.round(angle*WalkerConsts.GEAR_RATIO), true); // accounting for gear ratios abstractly
+		power.rotate(-Math.round(angle*WalkerConsts.GEAR_RATIO), true); // accounting for gear ratios abstractly
 	}
 
 	public void stop() {

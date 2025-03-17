@@ -15,13 +15,13 @@ public class TestBed {
 		this.frame = frame;
 	}
 
-	private void testLegs(BaseFrame frame) {
+	public void testLegs() {
 		LCD.clear();
 		LCD.drawString("Test legs", 0, 0);
 		frame.getLegs().testMotors();
 	}
 
-	private void testAngles(BaseFrame frame) {
+	public void testAngles() {
 		LCD.clear();
 		LCD.drawString("Measure angles", 0, 0);
 		frame.getLegs().angleReader();
@@ -33,8 +33,8 @@ public class TestBed {
 		LCD.drawString("each test", 0, 1);
 		Button.ENTER.waitForPressAndRelease();
 
-//		testLegs(frame);
-		testAngles(frame);
+//		testLegs();
+		testAngles();
 
 	}
 

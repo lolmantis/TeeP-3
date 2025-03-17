@@ -4,12 +4,20 @@ import ac.uk.RHUL.Students.AlexJ.CS1821.Leg.Leg;
 import ac.uk.RHUL.Students.AlexJ.CS1821.Leg.Legs;
 import ac.uk.RHUL.Students.AlexJ.CS1821.persConsts.WalkerConsts;
 import lejos.hardware.lcd.LCD;
-import lejos.utility.Delay;
+import lejos.hardware.sensor.EV3GyroSensor;
+import lejos.hardware.sensor.EV3UltrasonicSensor;
+import lejos.hardware.sensor.NXTSoundSensor;
 
 public class BaseFrame {
 
-	private Legs legs;
-	private StandAndSit riser;
+	
+	private final Legs legs;
+	
+	private final EV3GyroSensor pitch;
+	private final EV3UltrasonicSensor collisionDetector;
+	private final NXTSoundSensor listener;
+	
+	private final StandAndSit riser;
 
 	BaseFrame() {
 
@@ -27,7 +35,10 @@ public class BaseFrame {
 		LCD.drawString("Booting sensors...", 0, 0);
 		// sensors will be booted down here
 
-		//
+		pitch = new EV3GyroSensor(WalkerConsts.GYROSCOPE_PITCH_PORT);
+		collisionDetector = new EV3UltrasonicSensor(WalkerConsts.DISTANCE_COLLISION_PORT);
+		listener = new NXTSoundSensor(WalkerConsts.SOUND_LISTENER_PORT);
+		
 
 		// method classes down here
 

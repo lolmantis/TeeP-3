@@ -8,20 +8,22 @@ public class Driver {
 	public static void main(String[] args) {
 
 		BaseFrame frame = new BaseFrame();
-
-//		LCD.drawString("Enter: begin tests", 0, 1);
-//		Button.ENTER.waitForPressAndRelease();
-//		LCD.clear();
-//		TestBed tester = new TestBed(frame);
+		TestBed tester = new TestBed(frame);
+		
+		LCD.clear();
+		LCD.drawString("Enter: begin tests", 0, 1);
+		Button.ENTER.waitForPressAndRelease();
+		tester.testLegs();
+		Button.ENTER.waitForPressAndRelease();
 //		tester.runTests();
 
-		LCD.clear();
-		LCD.drawString("Enter to Stand", 0, 1);
-		Button.ENTER.waitForPressAndRelease();
-		LCD.clear();
-		frame.stand(false);
-//		frame.standFromCat();
-		Button.ENTER.waitForPressAndRelease();
+//		LCD.clear();
+//		LCD.drawString("Enter to Stand", 0, 1);
+//		Button.ENTER.waitForPressAndRelease();
+//		LCD.clear();
+//		frame.stand(false);
+////		frame.standFromCat();
+//		Button.ENTER.waitForPressAndRelease();
 	}
 
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project basedir="." default="jar" name="AJ.Stand.09.normal">
+<project basedir="." default="jar" name="AJ.Walker.04.TestLegs">
   <property name="main-class" value="ac.uk.RHUL.Students.AlexJ.CS1821.WalkerFourLegs.Driver" />
   <property environment="env" />
     <property name="source.dir" value="src" />

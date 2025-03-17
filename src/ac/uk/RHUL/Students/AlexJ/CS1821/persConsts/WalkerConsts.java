@@ -14,12 +14,13 @@ public final class WalkerConsts {
 	public static final float GEAR_RATIO = 3.24f;
 
 	public static final Port GYROSCOPE_PITCH_PORT = SensorPort.S1;
+	public static final Port DISTANCE_COLLISION_PORT = SensorPort.S2;
+	public static final Port SOUND_LISTENER_PORT = SensorPort.S3;
 
-	public static final Port FRONT_LEFT_LEG_PORT = MotorPort.A;
-	public static final Port FRONT_RIGHT_LEG_PORT = MotorPort.B;
-	public static final Port BACK_RIGHT_LEG_PORT = MotorPort.C;
-	public static final Port BACK_LEFT_LEG_PORT = MotorPort.D;
-
-	// no sensors at present, figure out what and how you want to use them later
+	public static final Port FRONT_RIGHT_LEG_PORT = MotorPort.A;
+	public static final Port FRONT_LEFT_LEG_PORT = MotorPort.B;
+	public static final Port BACK_LEFT_LEG_PORT = MotorPort.C;
+	public static final Port BACK_RIGHT_LEG_PORT = MotorPort.D;
+	
 
 }

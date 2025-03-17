@@ -93,13 +93,14 @@ public final class Legs {
 	}
 
 	public void testMotors() {
-		waitToStop();
+		LCD.drawString("boom", 0, 0);
 		beginSync();
+		waitToStop();
 		for (Leg leg : legs) {
-			leg.forward();
+			leg.setSpeed(360);
+			leg.rotate(360);
 		}
-		Delay.msDelay(1000);
-		immediateStop();
+		waitToStop();
 		endSync();
 	}
 
