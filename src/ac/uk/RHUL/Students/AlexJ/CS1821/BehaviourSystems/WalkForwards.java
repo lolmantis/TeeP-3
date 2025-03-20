@@ -17,7 +17,4 @@ public class WalkForwards {
 	public final void stop() {
 		
 	}
-	
-
-	
 }

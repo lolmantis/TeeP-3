@@ -17,14 +17,18 @@ public class Driver {
 //		Button.ENTER.waitForPressAndRelease();
 //		tester.runTests();
 
-		LCD.clear();
-		LCD.drawString("Enter to Stand", 0, 1);
-		Button.ENTER.waitForPressAndRelease();
-		LCD.clear();
-//		frame.stand(false);
-		frame.standFromCat();
-//		frame.scratchPad();
-		Button.ENTER.waitForPressAndRelease();
+//		LCD.clear();
+//		LCD.drawString("Enter to Stand", 0, 1);
+//		Button.ENTER.waitForPressAndRelease();
+//		LCD.clear();
+////		frame.stand(false);
+//		frame.standFromCat();
+////		frame.scratchPad();
+//		Button.ENTER.waitForPressAndRelease();
+		
+//		while (!Button.ENTER.isDown()) {
+//			frame.petTheCat();
+//		}
 	}
 
 }

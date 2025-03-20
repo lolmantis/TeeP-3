@@ -54,21 +54,7 @@ public final class Leg {
 	
 	public void stand() {
 		rotate(-90);
-	}
-
-	/**
-	 * @param reversed Boolean determines leg position
-	 * @see true: next to brick
-	 * @see false: below brick
-	 * 
-	 * 
-	 */
-	public void stand(Boolean reversed) {
-		if (reversed) {rotate(215);}
-		else {rotate(-90);}
-		// in case this gets more complex, I'm abstracting standing
-		// basic principle is to rotate 90 degrees
-		// be mindful of direction! gears
+		// only used from catmode
 	}
 
 	public void StepForward() {

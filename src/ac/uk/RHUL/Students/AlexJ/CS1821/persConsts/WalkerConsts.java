@@ -15,7 +15,7 @@ public final class WalkerConsts {
 
 	public static final Port GYROSCOPE_PITCH_PORT = SensorPort.S1;
 	public static final Port DISTANCE_COLLISION_PORT = SensorPort.S2;
-	public static final Port SOUND_LISTENER_PORT = SensorPort.S3;
+	public static final Port TOUCH_PURR_PORT = SensorPort.S3;
 
 	public static final Port FRONT_RIGHT_LEG_PORT = MotorPort.A;
 	public static final Port FRONT_LEFT_LEG_PORT = MotorPort.B;
