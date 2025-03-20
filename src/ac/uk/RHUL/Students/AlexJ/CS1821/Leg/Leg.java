@@ -8,6 +8,7 @@ import lejos.hardware.motor.BaseRegulatedMotor;
 public final class Leg {
 
 	private final BaseRegulatedMotor power; // ratio 24:40
+	private LegState state;
 	/*
 	 * gears: 24 into 40 twice
 	 * ratio 3:5
@@ -20,15 +21,11 @@ public final class Leg {
 	 */
 	private int speed;
 
-	public Leg(Port port) {
-		this(port, WalkerConsts.MOTOR_SPEED_BASE);
-
-	}
-
-	public Leg(Port port, int speed) {
+	public Leg(Port port, LegState state) {
 		power = new EV3LargeRegulatedMotor(port);
-		this.speed = speed;
+		this.speed = WalkerConsts.MOTOR_SPEED_BASE;
 		power.setSpeed(this.speed);
+		this.state = state;
 	}
 
 	protected BaseRegulatedMotor getMotor() {
@@ -44,7 +41,7 @@ public final class Leg {
 	}
 
 	public void rotate(int angle) {
-		power.rotate(-Math.round(angle*WalkerConsts.GEAR_RATIO), true); // accounting for gear ratios abstractly
+		power.rotate(Math.round(angle*WalkerConsts.GEAR_RATIO), true); // accounting for gear ratios abstractly
 	}
 
 	public void stop() {
@@ -53,6 +50,10 @@ public final class Leg {
 
 	public void waitComplete() {
 		power.waitComplete();
+	}
+	
+	public void stand() {
+		rotate(-90);
 	}
 
 	/**
