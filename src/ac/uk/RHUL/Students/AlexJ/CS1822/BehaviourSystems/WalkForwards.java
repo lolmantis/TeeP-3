@@ -1,6 +1,6 @@
-package ac.uk.RHUL.Students.AlexJ.CS1821.BehaviourSystems;
+package ac.uk.RHUL.Students.AlexJ.CS1822.BehaviourSystems;
 
-import ac.uk.RHUL.Students.AlexJ.CS1821.Leg.Legs;
+import ac.uk.RHUL.Students.AlexJ.CS1822.Leg.Legs;
 
 public class WalkForwards {
 	private final Legs legs;

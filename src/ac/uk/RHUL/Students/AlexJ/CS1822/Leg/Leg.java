@@ -1,8 +1,8 @@
-package ac.uk.RHUL.Students.AlexJ.CS1821.Leg;
+package ac.uk.RHUL.Students.AlexJ.CS1822.Leg;
 
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.Port;
-import ac.uk.RHUL.Students.AlexJ.CS1821.persConsts.WalkerConsts;
+import ac.uk.RHUL.Students.AlexJ.CS1822.persConsts.WalkerConsts;
 import lejos.hardware.motor.BaseRegulatedMotor;
 
 public final class Leg {

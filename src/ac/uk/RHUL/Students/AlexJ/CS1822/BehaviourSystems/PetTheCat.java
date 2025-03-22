@@ -1,4 +1,4 @@
-package ac.uk.RHUL.Students.AlexJ.CS1821.BehaviourSystems;
+package ac.uk.RHUL.Students.AlexJ.CS1822.BehaviourSystems;
 
 import lejos.hardware.lcd.LCD;
 import lejos.hardware.sensor.EV3TouchSensor;

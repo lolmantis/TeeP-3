@@ -1,4 +1,4 @@
-package ac.uk.RHUL.Students.AlexJ.CS1821.persConsts;
+package ac.uk.RHUL.Students.AlexJ.CS1822.persConsts;
 
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.Port;
