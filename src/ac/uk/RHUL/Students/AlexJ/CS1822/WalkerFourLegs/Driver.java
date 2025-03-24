@@ -29,7 +29,6 @@ public class Driver {
 //		while (!Button.ENTER.isDown()) {
 //			frame.petTheCat();
 //		}
-// fuck
 	}
 
 }
