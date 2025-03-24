@@ -22,7 +22,7 @@ public class PetTheCat {
 	}
 	
 	private void resetMeowTimer() {
-		meowTimer = 50000 + random.nextInt(20000); // generates random aspect of meows - not perfectly a minute apart, not too random 
+		meowTimer = 50000 + random.nextInt(20000); // Generates random aspect of meows - not perfectly a minute apart, not too random 
 	}
 	
 	public void update(int deltaTime) {
