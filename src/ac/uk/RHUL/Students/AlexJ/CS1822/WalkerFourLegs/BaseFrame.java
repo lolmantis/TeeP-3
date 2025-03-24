@@ -2,7 +2,9 @@ package ac.uk.RHUL.Students.AlexJ.CS1822.WalkerFourLegs;
 
 import ac.uk.RHUL.Students.AlexJ.CS1822.BehaviourSystems.PetTheCat;
 import ac.uk.RHUL.Students.AlexJ.CS1822.BehaviourSystems.StandAndSit;
+import ac.uk.RHUL.Students.AlexJ.CS1822.BehaviourSystems.WalkForwards;
 import ac.uk.RHUL.Students.AlexJ.CS1822.Leg.Leg;
+import ac.uk.RHUL.Students.AlexJ.CS1822.Leg.LegID;
 import ac.uk.RHUL.Students.AlexJ.CS1822.Leg.LegState;
 import ac.uk.RHUL.Students.AlexJ.CS1822.Leg.Legs;
 import ac.uk.RHUL.Students.AlexJ.CS1822.persConsts.WalkerConsts;
@@ -23,16 +25,17 @@ public class BaseFrame {
 	
 	private final StandAndSit riser;
 	private final PetTheCat pet;
+	private final WalkForwards movement;
 
 	BaseFrame() {
 
 		// initialise legs
 		LCD.clear();
 		LCD.drawString("Booting legs...", 0, 0);
-		Leg FrontLeft = new Leg(WalkerConsts.FRONT_LEFT_LEG_PORT, LegState.NEUTRAL);
-		Leg FrontRight = new Leg(WalkerConsts.FRONT_RIGHT_LEG_PORT, LegState.NEUTRAL);
-		Leg BackLeft = new Leg(WalkerConsts.BACK_LEFT_LEG_PORT, LegState.SEATED);
-		Leg BackRight = new Leg(WalkerConsts.BACK_RIGHT_LEG_PORT, LegState.SEATED);
+		Leg FrontLeft = new Leg(WalkerConsts.FRONT_LEFT_LEG_PORT, LegState.NEUTRAL, LegID.FRONT_LEFT);
+		Leg FrontRight = new Leg(WalkerConsts.FRONT_RIGHT_LEG_PORT, LegState.NEUTRAL, LegID.FRONT_RIGHT);
+		Leg BackLeft = new Leg(WalkerConsts.BACK_LEFT_LEG_PORT, LegState.SEATED, LegID.BACK_LEFT);
+		Leg BackRight = new Leg(WalkerConsts.BACK_RIGHT_LEG_PORT, LegState.SEATED, LegID.BACK_RIGHT);
 
 		legs = new Legs(new Leg[] { FrontLeft, FrontRight, BackLeft, BackRight });
 
@@ -51,6 +54,8 @@ public class BaseFrame {
 		LCD.drawString("Booting conscious...", 0, 0);
 		riser = new StandAndSit(legs);
 		pet = new PetTheCat(purr);
+		movement = new WalkForwards(legs);
+		
 	}
 
 	public Legs getLegs() {
@@ -62,6 +67,15 @@ public class BaseFrame {
 	}
 	
 	public void petTheCat() {
-		pet.theCat();
+//		pet.theCat();
+//		pet.update(0);
+	}
+	
+	public void walkForwards() {
+		movement.walk();
+	}
+	
+	public void stopWalking() {
+		movement.stop();
 	}
 }

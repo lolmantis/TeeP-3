@@ -53,6 +53,9 @@ public final class Legs {
 		legs[0].getMotor().endSynchronization();
 	}
 
+	/**
+	 * <b> expects to be called within a sync block<b>
+	 */
 	public void waitToStop() {
 		for (Leg leg : legs) {
 			leg.waitComplete();
@@ -64,6 +67,15 @@ public final class Legs {
 		for (Leg leg : legs) {
 			leg.stop();
 		}
+		endSync();
+	}
+	
+	public void returnToNeutral() {
+		beginSync();
+		for (Leg leg : legs) {
+			leg.returnToNeutral();
+		}
+		waitToStop();
 		endSync();
 	}
 

@@ -2,6 +2,7 @@ package ac.uk.RHUL.Students.AlexJ.CS1822.WalkerFourLegs;
 
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
+import lejos.utility.Delay;
 
 public class Driver {
 
@@ -29,6 +30,14 @@ public class Driver {
 //		while (!Button.ENTER.isDown()) {
 //			frame.petTheCat();
 //		}
+		
+		frame.walkForwards();
+		while (!Button.ENTER.isDown()) {
+			// wait
+			Delay.msDelay(100);
+		}
+		frame.stopWalking();
+		Button.ENTER.waitForPressAndRelease();
 	}
 
 }

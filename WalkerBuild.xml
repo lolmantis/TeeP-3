@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project basedir="." default="jar" name="AJ.12.petTheCat">
+<project basedir="." default="jar" name="AJ.12.walkOneStep">
   <property name="main-class" value="ac.uk.RHUL.Students.AlexJ.CS1821.WalkerFourLegs.Driver" />
   <property environment="env" />
     <property name="source.dir" value="src" />

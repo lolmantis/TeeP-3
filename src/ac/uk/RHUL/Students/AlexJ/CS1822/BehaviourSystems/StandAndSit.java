@@ -18,7 +18,13 @@ public class StandAndSit {
 			return;
 		}
 		Standing = false;
-		// coming soon
+		legs.beginSync();
+		legs.getLeg(LegID.FRONT_LEFT).rotate(17);
+		legs.getLeg(LegID.FRONT_RIGHT).rotate(17);
+		legs.getLeg(LegID.BACK_LEFT).sit();
+		legs.getLeg(LegID.BACK_RIGHT).sit();
+		legs.waitToStop();
+		legs.endSync();
 	}
 
 	public void standFromCatMode() {

@@ -9,29 +9,41 @@ public final class Leg {
 
 	private final BaseRegulatedMotor power; // ratio 24:40
 	private LegState state;
+	private LegID identifier;
+	private int reversed;
 	/*
 	 * gears: 24 into 40 twice
 	 * ratio 3:5
 	 * 3:5 --> 3:5
 	 * 1.8x torque
 	 * twice
-	 * 3.24x the torque power
+	 * 2.79x the torque power
 	 * 
-	 * positive angle = anticlockwise, negative angle = clockwise 
+	 * positive angle = clockwise, negative angle = anticlockwise 
 	 */
 	private int speed;
 
-	public Leg(Port port, LegState state) {
+	public Leg(Port port, LegState state, LegID identifier) {
+		this.state = state;
+		this.identifier = identifier;
+		// the front motors are upside down
+		reversed = ((this.identifier == LegID.FRONT_LEFT || this.identifier == LegID.FRONT_RIGHT) ? -1:1);
+		
 		power = new EV3LargeRegulatedMotor(port);
 		this.speed = WalkerConsts.MOTOR_SPEED_BASE;
 		power.setSpeed(this.speed);
-		this.state = state;
+		
 	}
 
 	protected BaseRegulatedMotor getMotor() {
 		return power;
 	}
 
+	/**
+	 * @deprecated
+	 * spins motor forwards, dangerous
+	 * as bars will snap, this is debug only
+	 */
 	public void forward() {
 		power.forward();
 	}
@@ -41,7 +53,7 @@ public final class Leg {
 	}
 
 	public void rotate(int angle) {
-		power.rotate(Math.round(angle*WalkerConsts.GEAR_RATIO), true); // accounting for gear ratios abstractly
+		power.rotate(Math.round(angle*WalkerConsts.GEAR_RATIO)*reversed, true); // accounting for gear ratios abstractly
 	}
 
 	public void stop() {
@@ -56,19 +68,33 @@ public final class Leg {
 		rotate(-90);
 		// only used from catmode
 	}
-
-	public void StepForward() {
-		/*
-		 * in order: forward 30 if from resting, wait for other steps then wait then
-		 * rotate back 60 degrees
-		 * 
-		 * in essence, 60 up to go forward, then to move the body forward, 60 back
-		 */
+	
+	public void sit() {
+		rotate(90);
 	}
 
-	public void StepNeutral() {
-		/*
-		 * after stepping forward, return to neutral point
-		 */
+	public void stepForward() {
+		// rotate forward 20 degrees
+		rotate(20);
+	}
+	
+	public void stepBack() {
+		// rotate back 20 degrees
+		rotate(-20);
+	}
+
+	public void returnToNeutral() {
+		switch (state) {
+		case NEUTRAL:
+			break;
+		case FORWARD:
+			stepBack();
+			break;
+		case BACK:
+			stepForward();
+			break;
+		case SEATED:
+			break;
+		}
 	}
 }
