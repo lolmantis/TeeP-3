@@ -73,14 +73,16 @@ public final class Leg {
 		rotate(90);
 	}
 
-	public void stepForward() {
+	public void stepForward(LegState newState) {
 		// rotate forward 20 degrees
 		rotate(20);
+		state = newState;
 	}
 	
-	public void stepBack() {
+	public void stepBack(LegState newState) {
 		// rotate back 20 degrees
 		rotate(-20);
+		state = newState;
 	}
 
 	public void returnToNeutral() {

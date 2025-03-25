@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project basedir="." default="jar" name="AJ.12.walkOneStep">
+<project basedir="." default="jar" name="GW.14.walkOneStep">
   <property name="main-class" value="ac.uk.RHUL.Students.AlexJ.CS1821.WalkerFourLegs.Driver" />
   <property environment="env" />
     <property name="source.dir" value="src" />
     <property name="lib.dir" value="${env.EV3_HOME}/lib/ev3" />
     <property name="class.dir" value="build" />
+  	<property name="resources.dir" value="resources"/>
     <property name="jar.dir"
               value="../../__YOUR_STUFF/RH/OneDrive/OneDrive - Royal Holloway University of London/robot" />
     <property name="lejos.home" value="${env.EV3_HOME/}" />
@@ -39,6 +40,7 @@
           <attribute name="Class-Path"
                      value="${lejos.home}/lib/ev3classes.jar ${lejos.home}/libjna/usr/share/java/jna.jar" />
         </manifest>
+        <fileset dir="${resources.dir}"/>
       </jar>
     </target>
   </project>

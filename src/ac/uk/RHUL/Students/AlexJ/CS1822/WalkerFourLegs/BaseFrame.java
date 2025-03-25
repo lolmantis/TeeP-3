@@ -1,6 +1,6 @@
 package ac.uk.RHUL.Students.AlexJ.CS1822.WalkerFourLegs;
 
-import ac.uk.RHUL.Students.AlexJ.CS1822.BehaviourSystems.PetTheCat;
+import ac.uk.RHUL.Students.EmmaC.CS1822.BehaviourSystems.PetTheCat;
 import ac.uk.RHUL.Students.AlexJ.CS1822.BehaviourSystems.StandAndSit;
 import ac.uk.RHUL.Students.AlexJ.CS1822.BehaviourSystems.WalkForwards;
 import ac.uk.RHUL.Students.AlexJ.CS1822.Leg.Leg;
@@ -12,7 +12,6 @@ import lejos.hardware.lcd.LCD;
 import lejos.hardware.sensor.EV3GyroSensor;
 import lejos.hardware.sensor.EV3TouchSensor;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
-import lejos.hardware.sensor.NXTSoundSensor;
 
 public class BaseFrame {
 
@@ -67,8 +66,7 @@ public class BaseFrame {
 	}
 	
 	public void petTheCat() {
-//		pet.theCat();
-//		pet.update(0);
+		pet.update(1);
 	}
 	
 	public void walkForwards() {

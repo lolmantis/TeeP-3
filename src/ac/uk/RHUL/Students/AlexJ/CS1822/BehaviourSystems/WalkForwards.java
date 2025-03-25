@@ -1,6 +1,7 @@
 package ac.uk.RHUL.Students.AlexJ.CS1822.BehaviourSystems;
 
 import ac.uk.RHUL.Students.AlexJ.CS1822.Leg.LegID;
+import ac.uk.RHUL.Students.AlexJ.CS1822.Leg.LegState;
 import ac.uk.RHUL.Students.AlexJ.CS1822.Leg.Legs;
 
 public class WalkForwards {
@@ -40,8 +41,8 @@ public class WalkForwards {
 	private final void primer() {
 		// FrontLeft & BackRight neutral --> forward
 		// FrontRight & BackLeft neutral --> neutral
-		legs.getLeg(LegID.FRONT_LEFT).stepForward();
-		legs.getLeg(LegID.BACK_RIGHT).stepForward();
+		legs.getLeg(LegID.FRONT_LEFT).stepForward(LegState.FORWARD);
+		legs.getLeg(LegID.BACK_RIGHT).stepForward(LegState.FORWARD);
 		legs.getLeg(LegID.FRONT_RIGHT).returnToNeutral();
 		legs.getLeg(LegID.BACK_LEFT).returnToNeutral();
 	}
