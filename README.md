@@ -17,7 +17,7 @@ LegID: Enum for identifying which legs are what. front legs are denoted FRONT_LE
 legs are denoted BACK_LEFT and BACK_RIGHT. Allows for easy identification for manipulating legs for 
 behaviours such as sitting, standing or walking. 
 
-Legs: 
+Legs: Handles methods for controling leg angle and motor speed. 
 
 
 LegState: Enum for identifying possible states for the legs corresponding to behaviours. Possible states 
@@ -25,11 +25,13 @@ are FORWARD, NEUTRAL, BACK, SEATED.
 
 
 WALKERFOURLEGS:
-BaseFrame:
+BaseFrame: Arbitrator. Initialises the legs and sensors. Arbitrator ensures the priorities are correct. 
+Purring and meowing are interrupts for example.  
 
-Driver:
+Driver: Instantiates BaseFrame. Initialises behaviours, runs the arbitrator and allows manual control of 
+behaviours (via pressing the enter key)
 
-TestBed:
+TestBed: Utility for testing leg motors and angles. Provides status updates through LCD display. 
 
 PERSCONSTS:
 WalkerConsts: Constants for sensors and motors. 
