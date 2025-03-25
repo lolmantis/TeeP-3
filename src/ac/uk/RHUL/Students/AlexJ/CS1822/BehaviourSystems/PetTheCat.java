@@ -45,11 +45,11 @@ public class PetTheCat {
 	}
 	
 	private void startPurring() {
-		Sound.playSample(new java.io.File("Cat Purring Sound Effect.wav"), 100);
+		Sound.playSample(new java.io.File("CatPurringSoundEffect.wav"), 100);
 	}
 	
 	private void meow() {
-		Sound.playSample(new java.io.File("Meow Sound Effect.wav"), 100);
+		Sound.playSample(new java.io.File("MeowSoundEffect.wav"), 100);
 	}
 
 }
