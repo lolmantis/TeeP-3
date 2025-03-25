@@ -2,10 +2,14 @@ package ac.uk.RHUL.Students.EmmaC.CS1822.BehaviourSystems;
 
 import lejos.hardware.sensor.EV3TouchSensor;
 import lejos.robotics.SampleProvider;
+import lejos.robotics.subsumption.Behavior;
+import lejos.utility.Delay;
 import lejos.hardware.Sound;
+import lejos.hardware.lcd.LCD;
+
 import java.util.Random;
 
-public class PetTheCat {
+public class PetTheCat implements Behavior {
 	private final EV3TouchSensor pet;
 	private final SampleProvider getPets;
 	private float[] isPetted = new float[1];
@@ -21,9 +25,14 @@ public class PetTheCat {
 	}
 	
 	private void resetMeowTimer() {
-		meowTimer = 50000 + random.nextInt(20000); // Generates random aspect of meows - not perfectly a minute apart, not too random 
+		meowTimer = 50000 + random.nextInt(20000); 
+		// Generates random aspect of meows - not perfectly a minute apart, not too random 
 	}
-	
+	/**
+	 * 
+	 * @param deltaTime
+	 * @return time delay for the sound file
+	 */
 	public void update(int deltaTime) {
 		getPets.fetchSample(isPetted, 0);
 		if (isPetted[0] == 1) {
@@ -31,8 +40,6 @@ public class PetTheCat {
 				isPurring = true;
 				startPurring();
 			}
-		} else {
-			isPurring = false;
 		}
 		
 		// Meow timer
@@ -40,16 +47,45 @@ public class PetTheCat {
 		if (meowTimer <= 0) {
 			meow();
 			resetMeowTimer();
-			
 		}
+		LCD.drawString(String.format("Time to meow: %d", timeToMeow()), 0, 2);
+	}
+	
+	public int timeToMeow() {
+		return meowTimer;
 	}
 	
 	private void startPurring() {
-		Sound.playSample(new java.io.File("CatPurringSoundEffect.wav"), 100);
+		int delaytime = Sound.playSample(new java.io.File("CatPurringSoundEffectLoud.wav"), 100);
+		LCD.drawInt(delaytime,0,6);
+		meowTimer -= delaytime;
+		Delay.msDelay(delaytime);
+		isPurring = false;
 	}
 	
 	private void meow() {
-		Sound.playSample(new java.io.File("MeowSoundEffect.wav"), 100);
+		int delaytime = Sound.playSample(new java.io.File("MeowSoundEffectLoud.wav"), 100);
+		LCD.drawInt(delaytime,0,7);
+		meowTimer -= delaytime;
+		Delay.msDelay(delaytime);
+	}
+
+	@Override
+	public boolean takeControl() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void action() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void suppress() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -17,10 +17,10 @@ public final class WalkerConsts {
 	public static final Port DISTANCE_COLLISION_PORT = SensorPort.S2;
 	public static final Port TOUCH_PURR_PORT = SensorPort.S3;
 
-	public static final Port FRONT_RIGHT_LEG_PORT = MotorPort.A;
-	public static final Port FRONT_LEFT_LEG_PORT = MotorPort.B;
-	public static final Port BACK_LEFT_LEG_PORT = MotorPort.C;
-	public static final Port BACK_RIGHT_LEG_PORT = MotorPort.D;
+	public static final Port FRONT_LEFT_LEG_PORT = MotorPort.A;
+	public static final Port FRONT_RIGHT_LEG_PORT = MotorPort.B;
+	public static final Port BACK_RIGHT_LEG_PORT = MotorPort.C;
+	public static final Port BACK_LEFT_LEG_PORT = MotorPort.D;
 	
 
 }

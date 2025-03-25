@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project basedir="." default="jar" name="GW.14.walkOneStep">
-  <property name="main-class" value="ac.uk.RHUL.Students.AlexJ.CS1821.WalkerFourLegs.Driver" />
+<project basedir="." default="jar" name="GW.14.StepWithBehaviors.2">
+  <property name="main-class" value="ac.uk.RHUL.Students.AlexJ.CS1822.WalkerFourLegs.Driver" />
   <property environment="env" />
     <property name="source.dir" value="src" />
     <property name="lib.dir" value="${env.EV3_HOME}/lib/ev3" />
@@ -40,7 +40,7 @@
           <attribute name="Class-Path"
                      value="${lejos.home}/lib/ev3classes.jar ${lejos.home}/libjna/usr/share/java/jna.jar" />
         </manifest>
-        <fileset dir="${resources.dir}"/>
+        
       </jar>
     </target>
   </project>

@@ -38,6 +38,10 @@ public final class Leg {
 	protected BaseRegulatedMotor getMotor() {
 		return power;
 	}
+	
+	public LegID getID() {
+		return identifier;
+	}
 
 	/**
 	 * @deprecated
@@ -90,10 +94,10 @@ public final class Leg {
 		case NEUTRAL:
 			break;
 		case FORWARD:
-			stepBack();
+			stepBack(LegState.NEUTRAL);
 			break;
 		case BACK:
-			stepForward();
+			stepForward(LegState.NEUTRAL);
 			break;
 		case SEATED:
 			break;
