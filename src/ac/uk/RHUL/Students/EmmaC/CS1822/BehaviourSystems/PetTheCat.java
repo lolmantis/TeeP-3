@@ -10,6 +10,7 @@ import lejos.hardware.lcd.LCD;
 import java.util.Random;
 
 import ac.uk.RHUL.Students.AlexJ.CS1822.WalkerFourLegs.endProgram;
+import ac.uk.RHUL.Students.AlexJ.CS1822.persConsts.WalkerConsts;
 
 public class PetTheCat implements Behavior, endProgram {
 	private final EV3TouchSensor pet;
@@ -17,8 +18,10 @@ public class PetTheCat implements Behavior, endProgram {
 	private float[] isPetted = new float[1];
 	
 	private final Random random = new Random();
-	private int meowTimer;
+	private long meowTimer;
 	private boolean isPurring = false;
+	private long oldTime = System.currentTimeMillis();
+	private boolean silenced = false;
 	
 	private boolean programRunning = true; // for closing up
 	
@@ -29,20 +32,23 @@ public class PetTheCat implements Behavior, endProgram {
 	}
 	
 	@Override
-	public void setEndProgram() {
+	public synchronized void setEndProgram() {
 		programRunning = false;
 	}
 	
-	private void resetMeowTimer() {
-		meowTimer = 50000 + random.nextInt(20000); 
+	private synchronized void resetMeowTimer() {
+		meowTimer = WalkerConsts.MIN_MEOW_DELAY_MS + Long.valueOf(random.nextInt(WalkerConsts.MEOW_VARIANCE_MS)); 
 		// Generates random aspect of meows - not perfectly a minute apart, not too random 
 	}
 	/**
-	 * 
-	 * @param deltaTime
-	 * @return time delay for the sound file
+	 * both updates the counter & purrs as required
 	 */
-	public void update(int deltaTime) {
+	public synchronized void update() {
+		long nowTime = System.currentTimeMillis();
+		long deltaTime = nowTime - oldTime; 
+		meowTimer -= deltaTime;
+		oldTime = nowTime;
+
 		getPets.fetchSample(isPetted, 0);
 		if (isPetted[0] == 1) {
 			if (!isPurring) {
@@ -52,49 +58,54 @@ public class PetTheCat implements Behavior, endProgram {
 		}
 		
 		// Meow timer
-		meowTimer -= deltaTime;
 		if (meowTimer <= 0) {
 			meow();
 			resetMeowTimer();
 		}
-		LCD.drawString(String.format("Time to meow: %d", timeToMeow()), 0, 2);
 	}
 	
-	public int timeToMeow() {
+	/**
+	 * 
+	 * @return time to next meow
+	 */
+	public synchronized long timeToMeow() {
 		return meowTimer;
 	}
 	
-	private void startPurring() {
-		int delaytime = Sound.playSample(new java.io.File("CatPurringSoundEffectLoud.wav"), 100);
-		LCD.drawInt(delaytime,0,6);
-		meowTimer -= delaytime;
-		Delay.msDelay(delaytime);
+	private synchronized void startPurring() {
+		long nowTime = System.currentTimeMillis();
+		Sound.playSample(WalkerConsts.purr, 100);
+		long deltaTime = nowTime - oldTime; 
+		oldTime = nowTime;
+		Delay.msDelay(deltaTime);
+		meowTimer-=deltaTime;
 		isPurring = false;
 	}
 	
-	private void meow() {
-		int delaytime = Sound.playSample(new java.io.File("MeowSoundEffectLoud.wav"), 100);
-		LCD.drawInt(delaytime,0,7);
-		meowTimer -= delaytime;
+	private synchronized void meow() {
+		int delaytime = Sound.playSample(WalkerConsts.meow, 100);
 		Delay.msDelay(delaytime);
 	}
 
 	@Override
 	public boolean takeControl() {
 		getPets.fetchSample(isPetted, 0);
-		return programRunning && isPetted[0]==1;
+		LCD.drawString("3", 2, 3);
+		return isPetted[0]==1 && programRunning;
 	}
 
 	@Override
 	public void action() {
-		// TODO Auto-generated method stub
-		
+		LCD.drawString("meowing", 0, 4);
+		silenced = false;
+		if (!silenced) {
+			startPurring();
+		}
 	}
 
 	@Override
 	public void suppress() {
-		// TODO Auto-generated method stub
-		
+		silenced = true;
 	}
 
 }

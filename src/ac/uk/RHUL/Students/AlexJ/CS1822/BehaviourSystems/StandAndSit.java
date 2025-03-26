@@ -5,7 +5,9 @@ import ac.uk.RHUL.Students.AlexJ.CS1822.Leg.Legs;
 import ac.uk.RHUL.Students.AlexJ.CS1822.WalkerFourLegs.endProgram;
 import ac.uk.RHUL.Students.AlexJ.CS1822.persConsts.WalkerConsts;
 import lejos.hardware.Button;
+import lejos.hardware.lcd.LCD;
 import lejos.robotics.subsumption.Behavior;
+import lejos.utility.Delay;
 
 public class StandAndSit implements Behavior, endProgram {
 
@@ -18,11 +20,11 @@ public class StandAndSit implements Behavior, endProgram {
 	}
 	
 	@Override
-	public void setEndProgram() {
+	public synchronized void setEndProgram() {
 		programRunning = false;
 	}
 
-	public void sit() {
+	public synchronized void sit() {
 		if (sitting) {
 			return;
 		}
@@ -34,24 +36,25 @@ public class StandAndSit implements Behavior, endProgram {
 		legs.waitToStop();
 		legs.endSync();
 		sitting = true;
+		Delay.msDelay(WalkerConsts.STAND_AND_SIT_DELAY_MS);
+		Thread.yield();
 	}
 
-	public void stand() {
+	public synchronized void stand() {
 		if (!sitting) {
 			return;
 		}
-		// front legs are straight down, hind legs are straight forward
 		legs.beginSync();
-		// hind legs
 		legs.getLeg(LegID.FRONT_LEFT).rotate(WalkerConsts.STAND_FRONT_ANGLE);
 		legs.getLeg(LegID.FRONT_RIGHT).rotate(WalkerConsts.STAND_FRONT_ANGLE);
 		legs.getLeg(LegID.BACK_LEFT).stand();
 		legs.getLeg(LegID.BACK_RIGHT).stand();
-		// arbitrary rotate val, will be fine tuned later
 
 		legs.waitToStop();
 		legs.endSync();
 		sitting = false;
+		Delay.msDelay(WalkerConsts.STAND_AND_SIT_DELAY_MS);
+		Thread.yield();
 	}
 	
 	public boolean isSitting() {
@@ -60,16 +63,17 @@ public class StandAndSit implements Behavior, endProgram {
 
 	@Override
 	public boolean takeControl() {
-		return programRunning ? (Button.ENTER.isDown() || sitting) : false;
 		// either we're saying sit, or the program is ending
+//		return programRunning ? (Button.ENTER.isDown() || sitting) : false;
+		LCD.drawString("2", 1, 3);
+		return sitting && programRunning;
 	}
 
 	@Override
-	public void action() {
+	public synchronized void action() {
+		LCD.drawString("stnding", 0, 4);
 		if (sitting) {
 			stand();
-		} else {
-			sit();
 		}
 	}
 

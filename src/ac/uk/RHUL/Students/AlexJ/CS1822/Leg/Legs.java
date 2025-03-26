@@ -118,5 +118,11 @@ public final class Legs {
 		waitToStop();
 		endSync();
 	}
+	
+	public void close() {
+		for (Leg leg : legs) {
+			leg.close();
+		}
+	}
 
 }

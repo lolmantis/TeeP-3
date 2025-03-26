@@ -82,6 +82,20 @@ public final class Leg {
 		state = newState;
 	}
 	
+	public void doubleStepForward() {
+		if (state == LegState.BACK) {			
+		rotate(WalkerConsts.STEP_ANGLE*2);
+		state = LegState.FORWARD;
+		}
+	}
+	
+	public void doubleStepBack() {
+		if (state == LegState.FORWARD) {
+			rotate(-WalkerConsts.STEP_ANGLE*2);
+			state = LegState.BACK;
+		}
+	}
+	
 	public void stepBack(LegState newState) {
 		// rotate back 20 degrees
 		rotate(-WalkerConsts.STEP_ANGLE);
@@ -101,5 +115,9 @@ public final class Leg {
 		case SEATED:
 			break;
 		}
+	}
+	
+	public void close() {
+		power.close();
 	}
 }
