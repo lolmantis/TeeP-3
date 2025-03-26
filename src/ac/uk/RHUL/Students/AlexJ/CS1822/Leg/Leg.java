@@ -42,22 +42,21 @@ public final class Leg {
 	public LegID getID() {
 		return identifier;
 	}
-
-	/**
-	 * @deprecated
-	 * spins motor forwards, dangerous
-	 * as bars will snap, this is debug only
-	 */
-	public void forward() {
-		power.forward();
-	}
 	
 	public void setSpeed(float speed) {
 		power.setSpeed(speed);
 	}
 
+	/**
+	 * 
+	 * does not account for the stability bars, do not attempt to rotate legs too far
+	 * 
+	 * @param angle
+	 * angle to be rotated
+	 */
 	public void rotate(int angle) {
-		power.rotate(Math.round(angle*WalkerConsts.GEAR_RATIO)*reversed, true); // accounting for gear ratios abstractly
+		power.rotate(Math.round(angle*WalkerConsts.GEAR_RATIO)*reversed, true); 
+		// accounting for gear ratios abstractly, this ratio is 25/9 but it'll still be slightly wrong
 	}
 
 	public void stop() {
@@ -69,23 +68,23 @@ public final class Leg {
 	}
 	
 	public void stand() {
-		rotate(-90);
+		rotate(-WalkerConsts.STAND_REAR_ANGLE);
 		// only used from catmode
 	}
 	
 	public void sit() {
-		rotate(90);
+		rotate(WalkerConsts.STAND_REAR_ANGLE);
 	}
 
 	public void stepForward(LegState newState) {
 		// rotate forward 20 degrees
-		rotate(20);
+		rotate(WalkerConsts.STEP_ANGLE);
 		state = newState;
 	}
 	
 	public void stepBack(LegState newState) {
 		// rotate back 20 degrees
-		rotate(-20);
+		rotate(-WalkerConsts.STEP_ANGLE);
 		state = newState;
 	}
 

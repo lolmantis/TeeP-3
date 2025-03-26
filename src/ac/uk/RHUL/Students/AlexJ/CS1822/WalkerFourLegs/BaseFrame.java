@@ -17,8 +17,9 @@ import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
 
-public class BaseFrame implements Runnable{
-
+public class BaseFrame {
+	
+	private final shutdownThread exitThread = new shutdownThread(this);
 	
 	private final Legs legs;
 	
@@ -46,6 +47,7 @@ public class BaseFrame implements Runnable{
 
 		LCD.clear();
 		LCD.drawString("Booting sensors...", 0, 1);
+		
 		// sensors will be booted down here
 
 		pitch = new EV3GyroSensor(WalkerConsts.GYROSCOPE_PITCH_PORT); // this is unused, change that
@@ -64,22 +66,24 @@ public class BaseFrame implements Runnable{
 		// placeholders
 		LCD.clear();
 		LCD.drawString("Booting arbiter...", 0, 3);
-		Behavior[] priorities = new Behavior[] {
-			movement,riser,pet
-		};
-		arbiter = new Arbitrator(priorities);
+		Behavior[] priorities = new Behavior[] {movement,riser,pet};
+		arbiter = new Arbitrator(priorities, true);
 	}
 	
 	public void runArbiter() {
+		// start the exit thread before we begin!
+		exitThread.run();
 		arbiter.go();
 	}
 	
-	public void stopArbiter() {
-		arbiter.stop();
+	public void stopProgram() {
+		riser.setEndProgram();
+		pet.setEndProgram();
+		movement.setEndProgram();
 	}
 	
-	public void test() {
-		System.out.println("Hello world");
+	public boolean isSitting() {
+		return riser.isSitting();
 	}
 
 	public Legs getLegs() {
@@ -87,7 +91,7 @@ public class BaseFrame implements Runnable{
 	}
 
 	public void standFromCat() {
-		riser.standFromCatMode();
+		riser.stand();
 	}
 	
 	public void sitToCat() {
@@ -117,26 +121,19 @@ public class BaseFrame implements Runnable{
 		return;
 	}
 	
-	
 	public int timeToMeow() {
 		return pet.timeToMeow();
-	}
-	
-	public void walkForwards() {
-		movement.primeToWalk();
 	}
 	
 	public boolean walkPrimed() {
 		return movement.getPrimedFlag();
 	}
 	
+	public void walkForwards() {
+		movement.primeToWalk();
+	}
+	
 	public void stopWalking() {
 		movement.stop();
-	}
-
-	@Override
-	public void run() {
-		runArbiter();
-		
 	}
 }

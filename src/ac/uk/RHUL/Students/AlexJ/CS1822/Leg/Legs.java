@@ -62,6 +62,9 @@ public final class Legs {
 		}
 	}
 
+	/** 
+	 * <b> has its own sync call, for emergencies <b>
+	 */
 	public void immediateStop() {
 		beginSync();
 		for (Leg leg : legs) {
@@ -91,7 +94,7 @@ public final class Legs {
 		Delay.msDelay(500);
 		beginSync();
 		for (Leg leg : legs) {
-			leg.rotate(45);
+			leg.rotate(30);
 		}
 		waitToStop();
 		endSync();
@@ -110,7 +113,7 @@ public final class Legs {
 		waitToStop();
 		for (Leg leg : legs) {
 			leg.setSpeed(360);
-			leg.rotate(360);
+			leg.rotate(30);
 		}
 		waitToStop();
 		endSync();

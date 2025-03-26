@@ -9,7 +9,9 @@ import lejos.hardware.lcd.LCD;
 
 import java.util.Random;
 
-public class PetTheCat implements Behavior {
+import ac.uk.RHUL.Students.AlexJ.CS1822.WalkerFourLegs.endProgram;
+
+public class PetTheCat implements Behavior, endProgram {
 	private final EV3TouchSensor pet;
 	private final SampleProvider getPets;
 	private float[] isPetted = new float[1];
@@ -18,10 +20,17 @@ public class PetTheCat implements Behavior {
 	private int meowTimer;
 	private boolean isPurring = false;
 	
+	private boolean programRunning = true; // for closing up
+	
 	public PetTheCat(EV3TouchSensor pet) {
 		this.pet = pet;
 		getPets = this.pet.getTouchMode();
 		resetMeowTimer();
+	}
+	
+	@Override
+	public void setEndProgram() {
+		programRunning = false;
 	}
 	
 	private void resetMeowTimer() {
@@ -72,8 +81,8 @@ public class PetTheCat implements Behavior {
 
 	@Override
 	public boolean takeControl() {
-		// TODO Auto-generated method stub
-		return false;
+		getPets.fetchSample(isPetted, 0);
+		return programRunning && isPetted[0]==1;
 	}
 
 	@Override

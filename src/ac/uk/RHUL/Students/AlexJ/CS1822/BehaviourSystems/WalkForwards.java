@@ -3,21 +3,28 @@ package ac.uk.RHUL.Students.AlexJ.CS1822.BehaviourSystems;
 import ac.uk.RHUL.Students.AlexJ.CS1822.Leg.LegID;
 import ac.uk.RHUL.Students.AlexJ.CS1822.Leg.LegState;
 import ac.uk.RHUL.Students.AlexJ.CS1822.Leg.Legs;
+import ac.uk.RHUL.Students.AlexJ.CS1822.WalkerFourLegs.endProgram;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
 
-public class WalkForwards implements Behavior {
+public class WalkForwards implements Behavior, endProgram {
 	private final Legs legs;
 	private boolean walking = false;
 	private int legCycleStage = 0;
 	private boolean primed = false;
 	private boolean suppressor = false;
+	private boolean programRunning = true;
 	
 	public WalkForwards(Legs legs) {
 		this.legs = legs;
 	}
-
+	
+	@Override
+	public void setEndProgram() {
+		programRunning = false;
+		
+	}
 	
 	public final void primeToWalk() {
 		walking = true;
@@ -48,7 +55,7 @@ public class WalkForwards implements Behavior {
 				if (suppressor) {
 					break;
 				}
-				Delay.msDelay(100);
+				Delay.msDelay(250);
 			}
 		}
 		neutralise();
@@ -64,6 +71,7 @@ public class WalkForwards implements Behavior {
 		legs.beginSync();
 		legs.getLeg(LegID.FRONT_LEFT).stepForward(LegState.FORWARD);
 		legs.getLeg(LegID.BACK_RIGHT).stepForward(LegState.FORWARD);
+		
 		legs.getLeg(LegID.FRONT_RIGHT).returnToNeutral();
 		legs.getLeg(LegID.BACK_LEFT).returnToNeutral();
 		legs.waitToStop();
@@ -76,6 +84,14 @@ public class WalkForwards implements Behavior {
 		// i.e: rock forward
 		LCD.clear();
 		LCD.drawString("phase 1", 0, 6);
+		legs.beginSync();
+		legs.getLeg(LegID.FRONT_LEFT).returnToNeutral();
+		legs.getLeg(LegID.BACK_RIGHT).returnToNeutral();
+		
+		legs.getLeg(LegID.FRONT_RIGHT).stepBack(LegState.BACK);
+		legs.getLeg(LegID.BACK_LEFT).stepBack(LegState.BACK);
+		legs.waitToStop();
+		legs.endSync();
 	}
 	
 	private final void moveStageTwo() {
@@ -83,6 +99,16 @@ public class WalkForwards implements Behavior {
 		// FrontRight & BackLeft back (--> neutral) --> forward
 		LCD.clear();
 		LCD.drawString("phase 2", 0, 6);
+		legs.beginSync();
+		legs.getLeg(LegID.FRONT_LEFT).returnToNeutral();
+		legs.getLeg(LegID.BACK_RIGHT).returnToNeutral();
+		
+		legs.getLeg(LegID.FRONT_RIGHT).returnToNeutral();
+		legs.getLeg(LegID.FRONT_RIGHT).stepForward(LegState.FORWARD);
+		legs.getLeg(LegID.BACK_LEFT).returnToNeutral();
+		legs.getLeg(LegID.BACK_LEFT).stepForward(LegState.FORWARD);
+		legs.waitToStop();
+		legs.endSync();
 	}
 	
 	private final void moveStageThree() {
@@ -91,6 +117,14 @@ public class WalkForwards implements Behavior {
 		// i.e: rock forward
 		LCD.clear();
 		LCD.drawString("phase 3", 0, 6);
+		legs.beginSync();
+		legs.getLeg(LegID.FRONT_LEFT).stepBack(LegState.BACK);
+		legs.getLeg(LegID.BACK_RIGHT).stepBack(LegState.BACK);
+		
+		legs.getLeg(LegID.FRONT_RIGHT).returnToNeutral();
+		legs.getLeg(LegID.BACK_LEFT).returnToNeutral();
+		legs.waitToStop();
+		legs.endSync();
 	}
 	
 	private final void moveStageFour() {
@@ -99,6 +133,16 @@ public class WalkForwards implements Behavior {
 		// i.e: return to start
 		LCD.clear();
 		LCD.drawString("phase 4", 0, 6);
+		legs.beginSync();
+		legs.getLeg(LegID.FRONT_LEFT).returnToNeutral();
+		legs.getLeg(LegID.FRONT_LEFT).stepForward(LegState.FORWARD);
+		legs.getLeg(LegID.BACK_RIGHT).returnToNeutral();
+		legs.getLeg(LegID.BACK_RIGHT).stepBack(LegState.FORWARD);
+		
+		legs.getLeg(LegID.FRONT_RIGHT).returnToNeutral();
+		legs.getLeg(LegID.BACK_LEFT).returnToNeutral();
+		legs.waitToStop();
+		legs.endSync();
 	}
 	
 	public final void stop() {
@@ -110,13 +154,11 @@ public class WalkForwards implements Behavior {
 		primed = false;
 	}
 
-
 	@Override
 	public boolean takeControl() {
-		// TODO Auto-generated method stub
-		return true;
+		// we always want to walk, this is the lowest priority method
+		return programRunning;
 	}
-
 
 	@Override
 	public void action() {
@@ -125,7 +167,6 @@ public class WalkForwards implements Behavior {
 		walkCycle();
 		
 	}
-
 
 	@Override
 	public void suppress() {
