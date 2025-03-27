@@ -47,11 +47,10 @@ public class WalkForwards implements Behavior, endProgram {
 		if (primed) {
 			suppressor = false;
 			while (walking && !suppressor && programRunning) {
-				if (Button.DOWN.isDown()) {
+				if (Button.ENTER.isDown()) {
 					break;
 				}
 				Thread.yield();
-				LCD.drawString("W", 0, 3);
 				switch (legCycleStage++ % 4) {
 				case 0:
 					moveStageOne();
@@ -72,7 +71,6 @@ public class WalkForwards implements Behavior, endProgram {
 				}
 			}
 		}
-		LCD.drawString("N", 0, 3);
 		neutralise();
 	}
 	
@@ -89,67 +87,63 @@ public class WalkForwards implements Behavior, endProgram {
 		
 		legs.getLeg(LegID.FRONT_RIGHT).returnToNeutral();
 		legs.getLeg(LegID.BACK_LEFT).returnToNeutral();
-		legs.waitToStop();
 		legs.endSync();
+		legs.waitToStop();
 	}
 	
 	private synchronized  final void moveStageOne() {
 		// FrontLeft & BackRight forward --> neutral
 		// FrontRight & BackLeft neutral --> Back
 		// i.e: rock forward
-		LCD.drawString("phase 1", 0, 6);
 		legs.beginSync();
 		legs.getLeg(LegID.FRONT_LEFT).returnToNeutral();
 		legs.getLeg(LegID.BACK_RIGHT).returnToNeutral();
 		
 		legs.getLeg(LegID.FRONT_RIGHT).stepBack(LegState.BACK);
 		legs.getLeg(LegID.BACK_LEFT).stepBack(LegState.BACK);
-		legs.waitToStop();
 		legs.endSync();
+		legs.waitToStop();
 	}
 	
-	private synchronized  final void moveStageTwo() {
+	private synchronized final void moveStageTwo() {
 		// FrontLeft & BackRight neutral --> neutral
 		// FrontRight & BackLeft back (--> neutral) --> forward
-		LCD.drawString("phase 2", 0, 6);
 		legs.beginSync();
 		legs.getLeg(LegID.FRONT_LEFT).returnToNeutral();
 		legs.getLeg(LegID.BACK_RIGHT).returnToNeutral();
 		
 		legs.getLeg(LegID.FRONT_RIGHT).doubleStepForward();
 		legs.getLeg(LegID.BACK_LEFT).doubleStepForward();
-		legs.waitToStop();
 		legs.endSync();
+		legs.waitToStop();
 	}
 	
-	private synchronized  final void moveStageThree() {
+	private synchronized final void moveStageThree() {
 		// FrontLeft & BackRight neutral --> back
 		// FrontRight & BackLeft forward --> neutral
 		// i.e: rock forward
-		LCD.drawString("phase 3", 0, 6);
 		legs.beginSync();
 		legs.getLeg(LegID.FRONT_LEFT).stepBack(LegState.BACK);
 		legs.getLeg(LegID.BACK_RIGHT).stepBack(LegState.BACK);
 		
 		legs.getLeg(LegID.FRONT_RIGHT).returnToNeutral();
 		legs.getLeg(LegID.BACK_LEFT).returnToNeutral();
-		legs.waitToStop();
 		legs.endSync();
+		legs.waitToStop();
 	}
 	
-	private synchronized  final void moveStageFour() {
+	private synchronized final void moveStageFour() {
 		// FrontLeft & BackRight back (--> neutral) --> forward
 		//	FrontRight & BackLeft neutral --> neutral
 		// i.e: return to start
-		LCD.drawString("phase 4", 0, 6);
 		legs.beginSync();
 		legs.getLeg(LegID.FRONT_LEFT).doubleStepForward();
 		legs.getLeg(LegID.BACK_RIGHT).doubleStepForward();
 		
 		legs.getLeg(LegID.FRONT_RIGHT).returnToNeutral();
 		legs.getLeg(LegID.BACK_LEFT).returnToNeutral();
-		legs.waitToStop();
 		legs.endSync();
+		legs.waitToStop();
 	}
 	
 	public synchronized final void stop() {
@@ -159,6 +153,7 @@ public class WalkForwards implements Behavior, endProgram {
 	
 	public synchronized final void hardStop() {
 		legs.immediateStop();
+		legCycleStage = 0;
 	}
 	
 	public synchronized final void neutralise() {
@@ -166,19 +161,18 @@ public class WalkForwards implements Behavior, endProgram {
 		primed = false;
 		walking = false;
 		Thread.yield();
+		legCycleStage = 0;
 	}
 
 	@Override
 	public boolean takeControl() {
 		// we always want to walk, this is the lowest priority method
-		LCD.drawString("1", 0, 3);
 		return programRunning;
 	}
 
 	@Override
 	public synchronized void action() {
 		// get ready, go, then stop afterwards
-		LCD.drawString("walking", 0, 4);
 		if (!primed) {
 			primeToWalk();
 			walkCycle();			

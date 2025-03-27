@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project basedir="." default="jar" name="GW.14.BehaviorTest.7.6.9.13">
+<project basedir="." default="jar" name="GW.15.2.1.1.1.Walk">
   <property name="main-class" value="ac.uk.RHUL.Students.AlexJ.CS1822.WalkerFourLegs.Driver" />
   <property environment="env" />
     <property name="source.dir" value="src" />
@@ -19,7 +19,7 @@
       </fileset>
     </path>
     <target name="clean" description="delete old files">
-      <delete dir="${class.dir}/main" />
+      <delete dir="${class.dir}" />
       <delete dir="${jar.dir}" includes="**/${ant.project.name}.jar" />
     </target>
     <target name="compile" description="build class files" depends="clean">

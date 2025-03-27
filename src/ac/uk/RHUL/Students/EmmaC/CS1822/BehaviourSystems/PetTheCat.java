@@ -19,9 +19,7 @@ public class PetTheCat implements Behavior, endProgram {
 	
 	private final Random random = new Random();
 	private long meowTimer;
-	private boolean isPurring = false;
 	private long oldTime = System.currentTimeMillis();
-	private boolean silenced = false;
 	
 	private boolean programRunning = true; // for closing up
 	
@@ -32,7 +30,7 @@ public class PetTheCat implements Behavior, endProgram {
 	}
 	
 	@Override
-	public synchronized void setEndProgram() {
+	public void setEndProgram() {
 		programRunning = false;
 	}
 	
@@ -49,13 +47,7 @@ public class PetTheCat implements Behavior, endProgram {
 		meowTimer -= deltaTime;
 		oldTime = nowTime;
 
-		getPets.fetchSample(isPetted, 0);
-		if (isPetted[0] == 1) {
-			if (!isPurring) {
-				isPurring = true;
-				startPurring();
-			}
-		}
+		LCD.drawString(String.format("%d", meowTimer), 0, 7);
 		
 		// Meow timer
 		if (meowTimer <= 0) {
@@ -72,40 +64,22 @@ public class PetTheCat implements Behavior, endProgram {
 		return meowTimer;
 	}
 	
-	private synchronized void startPurring() {
-		long nowTime = System.currentTimeMillis();
-		Sound.playSample(WalkerConsts.purr, 100);
-		long deltaTime = nowTime - oldTime; 
-		oldTime = nowTime;
-		Delay.msDelay(deltaTime);
-		meowTimer-=deltaTime;
-		isPurring = false;
-	}
-	
-	private synchronized void meow() {
-		int delaytime = Sound.playSample(WalkerConsts.meow, 100);
-		Delay.msDelay(delaytime);
+	public synchronized void meow() {
+		Sound.playSample(WalkerConsts.meow, 100);
 	}
 
 	@Override
-	public boolean takeControl() {
+	public synchronized boolean takeControl() {
 		getPets.fetchSample(isPetted, 0);
-		LCD.drawString("3", 2, 3);
+		update();
 		return isPetted[0]==1 && programRunning;
 	}
 
 	@Override
-	public void action() {
-		LCD.drawString("meowing", 0, 4);
-		silenced = false;
-		if (!silenced) {
-			startPurring();
-		}
+	public synchronized void action() {
+		meow();
 	}
 
 	@Override
-	public void suppress() {
-		silenced = true;
-	}
-
+	public void suppress() {}
 }

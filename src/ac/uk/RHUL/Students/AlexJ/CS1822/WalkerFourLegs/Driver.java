@@ -18,15 +18,8 @@ public class Driver {
 				LCD.clear();
 			}
 		}
-		
-//		LCD.clear();
-//		LCD.drawString("ready.", 0, 4);
-		
+	
 		Button.ENTER.waitForPressAndRelease();
-		LCD.clear();
-//		frame.runArbiter();
-		frame.standFromCat();
-		frame.walkForwards();
-		Button.ENTER.waitForPressAndRelease();
+		frame.runArbiter();
 	}
 }

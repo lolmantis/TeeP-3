@@ -1,6 +1,7 @@
 package ac.uk.RHUL.Students.IbrahimA.BehaviourSystems;
 
 
+import ac.uk.RHUL.Students.AlexJ.CS1822.WalkerFourLegs.BaseFrame;
 import ac.uk.RHUL.Students.AlexJ.CS1822.WalkerFourLegs.endProgram;
 import ac.uk.RHUL.Students.AlexJ.CS1822.persConsts.WalkerConsts;
 import lejos.hardware.Sound;
@@ -14,10 +15,11 @@ public class Collision implements Behavior, endProgram {
     
     private final EV3UltrasonicSensor ultrasonicSensor;
     private final SampleProvider distanceProvider;
-    private boolean suppressed = false;
+    private final BaseFrame frame;
     private boolean programRunning = true;
 
-    public Collision(EV3UltrasonicSensor distance) {
+    public Collision(EV3UltrasonicSensor distance, BaseFrame frame) {
+    	this.frame = frame;
         ultrasonicSensor = distance;
         distanceProvider = ultrasonicSensor.getDistanceMode();
     }
@@ -32,20 +34,16 @@ public class Collision implements Behavior, endProgram {
     public boolean takeControl() {
         float[] sample = new float[distanceProvider.sampleSize()];
         distanceProvider.fetchSample(sample, 0);
-        LCD.drawString("4", 3, 3);
         return sample[0] < WalkerConsts.STOP_DISTANCE && programRunning;
     }
 
     @Override
     public void action() {
-    	LCD.drawString("viewing", 0, 4);
-        suppressed = false;
-        Sound.beep(); // placeholder
-        // Stopping motors in the main control logic no need to sync 
+      frame.sitToCat();
+      frame.meow();
     }
 
     @Override
     public void suppress() {
-        suppressed = true;
     }
 }

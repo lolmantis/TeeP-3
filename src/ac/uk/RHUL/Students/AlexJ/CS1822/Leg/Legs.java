@@ -54,11 +54,17 @@ public final class Legs {
 	}
 
 	/**
-	 * <b> expects to be called within a sync block<b>
+	 * <b>expects to be called outside a sync block<b>
 	 */
 	public void waitToStop() {
 		for (Leg leg : legs) {
 			leg.waitComplete();
+		}
+	}
+	
+	public void setSpeed(int speed) {
+		for (Leg leg : legs) {
+			leg.setSpeed(speed);
 		}
 	}
 
@@ -112,7 +118,6 @@ public final class Legs {
 		beginSync();
 		waitToStop();
 		for (Leg leg : legs) {
-			leg.setSpeed(360);
 			leg.rotate(30);
 		}
 		waitToStop();

@@ -49,8 +49,6 @@ public final class Leg {
 
 	/**
 	 * 
-	 * does not account for the stability bars, do not attempt to rotate legs too far
-	 * 
 	 * @param angle
 	 * angle to be rotated
 	 */
@@ -77,7 +75,6 @@ public final class Leg {
 	}
 
 	public void stepForward(LegState newState) {
-		// rotate forward 20 degrees
 		rotate(WalkerConsts.STEP_ANGLE);
 		state = newState;
 	}
