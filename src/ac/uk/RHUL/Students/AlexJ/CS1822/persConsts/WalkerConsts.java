@@ -16,7 +16,6 @@ public final class WalkerConsts {
 	public static final float GEAR_RATIO = 25f/9f; // 2.778 rec.
 	public static final int STEP_ANGLE = 20;
 	public static final int STEP_PAUSE_DURATION_MS = 2000;
-	public static final int STAND_AND_SIT_DELAY_MS = 5000;
 	public static final float STOP_DISTANCE = 0.50f; // 30 cm in meters
 	
 	public static final int STAND_FRONT_ANGLE = 17;

@@ -11,7 +11,7 @@ public final class Legs {
 	private final Leg[] legs; // 0 = FL, 1 = FR, 2 = BL 3 = BR
 
 	public Legs(Leg[] legs) {
-		if (legs.length != 4) {
+		if (legs.length != WalkerConsts.NUMBER_OF_LEGS) {
 			throw new RuntimeException("Error: must have four legs");
 		}
 		this.legs = legs;

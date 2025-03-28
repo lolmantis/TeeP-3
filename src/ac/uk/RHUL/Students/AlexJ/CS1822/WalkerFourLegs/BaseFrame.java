@@ -81,7 +81,7 @@ public class BaseFrame {
 		batteryTask = new BatteryChecker(this);
 		exitTask = new Shutdown(this);
 		
-		// placeholders
+		// arbiter
 		LCD.clear();
 		LCD.drawString("Booting arbiter...", 0, 1);
 		Behavior[] priorities = new Behavior[] {movement, riser, collision, pet, batteryTask, exitTask};
@@ -96,7 +96,7 @@ public class BaseFrame {
 		System.setOut(console);
 		
 		LCD.clear();
-		LCD.drawString("TP3 v15.1.1.4.13", 0, 0);
+		LCD.drawString("TP3 v15.2.1.1.2", 0, 0);
 		LCD.drawString("Made by:", 0, 1);
 		LCD.drawString("Alex Jacob", 0, 2);
 		LCD.drawString("Emma Chaudheri", 0, 3);
@@ -110,7 +110,6 @@ public class BaseFrame {
 	}
 	
 	public synchronized void stopProgram() {
-		LCD.drawString("F", 0, 2);
 		programRunning = false;
 		riser.setEndProgram();
 		pet.setEndProgram();

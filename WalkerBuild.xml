@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project basedir="." default="jar" name="GW.15.2.1.1.1.Walk">
+<project basedir="." default="jar" name="GW.15.2.1.1.2.Walk">
   <property name="main-class" value="ac.uk.RHUL.Students.AlexJ.CS1822.WalkerFourLegs.Driver" />
   <property environment="env" />
     <property name="source.dir" value="src" />
